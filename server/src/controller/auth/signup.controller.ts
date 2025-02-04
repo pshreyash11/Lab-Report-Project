@@ -7,10 +7,10 @@ import { generateAccessAndRefreshTokens } from "./token.controller.js"; // Impor
 
 
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
-  const { fullname, email, username, password, mobile, bio } = req.body;
+  const { fullname, email, username, password} = req.body;
 
   if (
-    [fullname, email, username, password, bio].some(
+    [fullname, email, username, password].some(
       (field) => String(field).trim() === ""
     )
   ) {
