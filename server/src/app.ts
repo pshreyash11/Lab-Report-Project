@@ -22,7 +22,7 @@ app.use(cookieParser());
 
 
 //routes import
-import userRouter from "./routes/user.routes";
+import userRouter from "./routes/user.routes.ts";
 
 app.use("/api/v1/users",userRouter);
 

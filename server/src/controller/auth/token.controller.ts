@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { User, IUser } from "../../models/user.model.js";
-import { ApiError } from "../../utils/ApiError.js";
-import { asyncHandler } from "../../utils/asyncHandler.js";
-import { ApiResponse } from "../../utils/ApiResponse.js";
+import { User, IUser } from "../../models/user.model.ts";
+import { ApiError } from "../../utils/ApiError.ts";
+import { asyncHandler } from "../../utils/asyncHandler.ts";
+import { ApiResponse } from "../../utils/ApiResponse.ts";
 
 /**
  * Generates access and refresh tokens for a given user ID.

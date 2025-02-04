@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { asyncHandler } from "../../utils/asyncHandler";
-import { ApiError } from "../../utils/ApiError";
-import { User } from "../../models/user.model";
-import { ApiResponse } from "../../utils/ApiResponse";
-import { generateAccessAndRefreshTokens } from "../auth/signup.controller";
+import { asyncHandler } from "../../utils/asyncHandler.ts";
+import { ApiError } from "../../utils/ApiError.ts";
+import { User } from "../../models/user.model.ts";
+import { ApiResponse } from "../../utils/ApiResponse.ts";
+import { generateAccessAndRefreshTokens } from "../auth/signup.controller.ts";
 
 const loginUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {

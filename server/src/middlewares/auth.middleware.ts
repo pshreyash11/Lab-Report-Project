@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { ApiError } from "../utils/ApiError";
-import { asyncHandler } from "../utils/asyncHandler";
+import { ApiError } from "../utils/ApiError.ts";
+import { asyncHandler } from "../utils/asyncHandler.ts";
 import jwt from "jsonwebtoken";
-import { User } from "../models/user.model";
+import { User } from "../models/user.model.ts";
 
 // Extend Express Request to include user property
 declare global {

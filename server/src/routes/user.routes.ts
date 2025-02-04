@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { loginUser, logoutUser } from "../controller/auth/login.controller";
-import { refreshAccessToken } from "../controller/auth/token.controller";
-import { registerUser } from "../controller/auth/signup.controller";
-import { verifyJWT } from "../middlewares/auth.middleware";
+import { loginUser, logoutUser } from "../controller/auth/login.controller.ts";
+import { refreshAccessToken } from "../controller/auth/token.controller.ts";
+import { registerUser } from "../controller/auth/signup.controller.ts";
+import { verifyJWT } from "../middlewares/auth.middleware.ts";
 
 const router = Router();
 

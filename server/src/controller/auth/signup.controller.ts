@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { User } from "../../models/user.model";
-import { ApiError } from "../../utils/ApiError";
-import { asyncHandler } from "../../utils/asyncHandler";
-import { ApiResponse } from "../../utils/ApiResponse";
-import { generateAccessAndRefreshTokens } from "./token.controller.js"; // Import from token.controller.ts
+import { User } from "../../models/user.model.ts";
+import { ApiError } from "../../utils/ApiError.ts";
+import { asyncHandler } from "../../utils/asyncHandler.ts";
+import { ApiResponse } from "../../utils/ApiResponse.ts";
+import { generateAccessAndRefreshTokens } from "./token.controller.ts"; // Import from token.controller.ts
 
 
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
