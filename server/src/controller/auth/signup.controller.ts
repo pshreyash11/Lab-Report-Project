@@ -7,10 +7,10 @@ import { generateAccessAndRefreshTokens } from "./token.controller.ts"; // Impor
 
 
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
-  const { fullname, email, username, password} = req.body;
+  const { fullname, email, username, password, age, gender} = req.body;
 
   if (
-    [fullname, email, username, password].some(
+    [fullname, email, username, password,age,gender].some(
       (field) => String(field).trim() === ""
     )
   ) {
@@ -32,6 +32,8 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     email,
     password,
     username: username.toLowerCase(),
+    age,
+    gender
   });
 
   const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
@@ -45,6 +47,11 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
     throw new ApiError(500, "Something went wrong while registering the user.");
   }
 
+  /**
+   * Cookie options configuration for secure HTTP-only cookies.
+   * @property {boolean} httpOnly - Prevents client-side access to the cookie through JavaScript
+   * @property {boolean} secure - Ensures cookie is only sent over HTTPS connections
+   */
   const options = {
     httpOnly: true,
     secure: true,

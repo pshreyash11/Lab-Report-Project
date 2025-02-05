@@ -8,9 +8,9 @@ export interface IUser extends Document {
   email: string;
   fullname: string;
   password: string;
+  age: number;
+  gender: string;
   refreshToken?: string;
-  // New field to store lab report results
-  reportResults: Array<any>; // Each element is a JSON object with format: { parameterName: [[parameterDate, parameterValue]] }
 }
 
 // Interface for User methods
@@ -55,15 +55,17 @@ const userSchema = new Schema<UserModel>({
     type: String,
     required: [true, "Password is required."],
   },
+  age: {
+    type: Number,
+    required: true,
+  },
+  gender: {
+    type: String,
+    required: true,
+    enum: ['Male', 'Female', 'Other']
+  },
   refreshToken: {
     type: String,
-  },
-  reportResults: {
-    // Array of JSON objects, where each object has the structure:
-    // { parameterName: [[parameterDate, parameterValue]] }
-    // All values are stored as strings.
-    type: [Schema.Types.Mixed] as unknown as Array<any>,
-    default: [],
   },
 });
 

@@ -1,3 +1,20 @@
+/**
+ * Middleware to verify JWT tokens and authenticate requests
+ * 
+ * @description
+ * This middleware:
+ * 1. Extracts JWT token from cookies or Authorization header
+ * 2. Verifies the token using ACCESS_TOKEN_SECRET
+ * 3. Finds the associated user in database
+ * 4. Attaches user object to request
+ * 
+ * @example
+ * ```typescript
+ * app.get('/protected', verifyJWT, (req, res) => {
+ *   // Access authenticated user via req.user
+ * });
+ * ```
+ */
 import { Request, Response, NextFunction } from 'express';
 import { ApiError } from "../utils/ApiError.ts";
 import { asyncHandler } from "../utils/asyncHandler.ts";

@@ -2,10 +2,11 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-// Import routes
-// import userRouter from "./routes/user.routes.ts";
-
 const app = express();
+
+if (!process.env.CORS_ORIGIN) {
+  throw new Error('CORS_ORIGIN environment variable is required');
+}
 
 app.use(
   cors({
