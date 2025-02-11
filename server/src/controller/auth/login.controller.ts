@@ -7,6 +7,7 @@ import { generateAccessAndRefreshTokens } from "../auth/signup.controller.ts";
 
 const loginUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
+    console.log("req.body is : ",req.body)
     const { email, username, password } = req.body;
 
     if (!username && !email) {

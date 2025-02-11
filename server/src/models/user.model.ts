@@ -8,8 +8,8 @@ export interface IUser extends Document {
   email: string;
   fullname: string;
   password: string;
-  age: number;
   gender: string;
+  dateOfBirth: Date;
   refreshToken?: string;
 }
 
@@ -55,14 +55,14 @@ const userSchema = new Schema<UserModel>({
     type: String,
     required: [true, "Password is required."],
   },
-  age: {
-    type: Number,
-    required: true,
-  },
   gender: {
     type: String,
     required: true,
     enum: ['Male', 'Female', 'Other']
+  },
+  dateOfBirth: {
+    type: Date,
+    required: true
   },
   refreshToken: {
     type: String,

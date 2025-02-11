@@ -7,10 +7,11 @@ import { generateAccessAndRefreshTokens } from "./token.controller.ts"; // Impor
 
 
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
-  const { fullname, email, username, password, age, gender} = req.body;
+  console.log("Received form data:", req.body);
+  const { fullname, email, username, password, gender, dateOfBirth} = req.body;
 
   if (
-    [fullname, email, username, password,age,gender].some(
+    [fullname, email, username, password, gender,dateOfBirth].some(
       (field) => String(field).trim() === ""
     )
   ) {
@@ -30,10 +31,10 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
   const user: any = await User.create({
     fullname,
     email,
-    password,
     username: username.toLowerCase(),
-    age,
-    gender
+    password,
+    gender,
+    dateOfBirth
   });
 
   const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(

@@ -3,10 +3,12 @@ import { loginUser, logoutUser } from "../controller/auth/login.controller.ts";
 import { refreshAccessToken } from "../controller/auth/token.controller.ts";
 import { registerUser } from "../controller/auth/signup.controller.ts";
 import { verifyJWT } from "../middlewares/auth.middleware.ts";
+import { upload } from "../utils/multer.ts";
 
 const router = Router();
 
 router.route("/register").post(
+  upload.none(),
   registerUser
 );
 

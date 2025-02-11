@@ -1,31 +1,37 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
-if (!process.env.CORS_ORIGIN) {
-  throw new Error('CORS_ORIGIN environment variable is required');
-}
+// Add request logging middleware 
+// this is for testing only.
+app.use((req, _res, next) => {
+  console.log('Request Body:', req.body);
+  console.log('Content-Type:', req.headers['content-type']);
+  next();
+});
 
+// Body parsing middleware
+app.use(express.json({ limit: "16kb" }));
+app.use(express.urlencoded({ extended: true, limit: "16kb" }));
+
+// CORS and cookie middleware
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN as string,
+    origin: process.env.CORS_ORIGIN as string|| 'http://localhost:3000',
     credentials: true,
   })
 );
 
-app.use(express.json({ limit: "16kb" }));
-app.use(express.urlencoded({ extended: true, limit: "16kb" }));
-app.use(express.static("public"));
 app.use(cookieParser());
+app.use(express.static("public"));
 
-
-
-//routes import
-import userRouter from "./routes/user.routes.ts";
-
-app.use("/api/v1/users",userRouter);
-
+// Routes
+import userRouter from "./routes/user.routes.js";
+app.use("/api/v1/users", userRouter);
 
 export { app };
