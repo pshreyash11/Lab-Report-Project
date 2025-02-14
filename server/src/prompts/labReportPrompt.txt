@@ -54,6 +54,9 @@ You are an AI assistant specialized in extracting structured data from lab repor
    - Look for dates in this document and store it in reportDate.
    - store dates in year-month-day in this format
    - there might be 2 kinds of dates collected date and reported date then take collected date.
+
+9. **Do not include there short forms if they are available there like 
+   - like if Packed Cell Volume (PCV) is there write only Packed Cell Volume
 ---
 
 ### **💡 Example Output Format**
