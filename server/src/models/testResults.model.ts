@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 // Define interface for test records
-interface ITestRecord {
+export interface ITestRecord {
   reportId: mongoose.Types.ObjectId;
   value: number;
   date: Date;
@@ -9,7 +9,7 @@ interface ITestRecord {
 }
 
 // Define interface for test results
-interface ITestResult extends Document {
+export interface ITestResult extends Document {
   userId: mongoose.Types.ObjectId;
   testName: string;
   testCategory: string;
