@@ -87,7 +87,7 @@ export const parseLabReport = asyncHandler(async (req: Request, res: Response) =
     
         console.log("Extracted text:", documentText);
 
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
         const promptTemplate = await getPrompt();
         const prompt = `${promptTemplate}\n\nText: ${documentText}`;
     
