@@ -7,6 +7,7 @@ import { upload } from "../utils/multer.ts";
 import { parseLabReport } from "../controller/labReportParser.ts";
 import { getTestTrends } from "../controller/testTrends.ts";
 import { analyzeTestTrends } from "../controller/healthInsights.ts";
+import { getUserHealthReport, updateUserSymptoms, updateUserMedications, deleteHealthReport } from "../controller/healthReport.ts";
 
 const router = Router();
 
@@ -26,5 +27,13 @@ router.route("/parse-report").post(verifyJWT, upload.single('report'),parseLabRe
 router.route("/test-trends").get(verifyJWT, getTestTrends);
 
 router.route("/analyze-trends").post(verifyJWT, analyzeTestTrends);
+
+router.route("/health-report")
+    .get(verifyJWT, getUserHealthReport)
+    .delete(verifyJWT, deleteHealthReport);
+
+router.route("/health-report/symptoms").patch(verifyJWT, updateUserSymptoms);
+
+router.route("/health-report/medications").patch(verifyJWT, updateUserMedications);
 
 export default router;
