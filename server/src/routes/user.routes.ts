@@ -6,6 +6,7 @@ import { verifyJWT } from "../middlewares/auth.middleware.ts";
 import { upload } from "../utils/multer.ts";
 import { parseLabReport } from "../controller/labReportParser.ts";
 import { getTestTrends } from "../controller/testTrends.ts";
+import { analyzeTestTrends } from "../controller/healthInsights.ts";
 
 const router = Router();
 
@@ -23,5 +24,7 @@ router.route("/refresh-token").post(refreshAccessToken); // This route is mostly
 router.route("/parse-report").post(verifyJWT, upload.single('report'),parseLabReport);
 
 router.route("/test-trends").get(verifyJWT, getTestTrends);
+
+router.route("/analyze-trends").post(verifyJWT, analyzeTestTrends);
 
 export default router;
