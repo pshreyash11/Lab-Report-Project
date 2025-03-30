@@ -92,7 +92,10 @@ const UserDashboard: React.FC = () => {
             <p className="text-gray-600 mb-4">
               Get AI-powered health recommendations
             </p>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+            <button
+              onClick={() => navigate("/health-insights")}
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            >
               Get Insights
             </button>
           </div>
