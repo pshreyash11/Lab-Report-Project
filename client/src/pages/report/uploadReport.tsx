@@ -82,13 +82,14 @@ const UploadReport: React.FC = () => {
       });
       return;
     }
-
+  
     setIsUploading(true);
     const formData = new FormData();
     formData.append('report', file);
-
+  
     try {
-      const response = await axios.post(
+      // Step 1: Parse the report
+      const parseResponse = await axios.post(
         'http://localhost:8000/api/v1/users/parse-report',
         formData,
         {
@@ -98,14 +99,33 @@ const UploadReport: React.FC = () => {
           },
         }
       );
-
-      if (response.data?.success) {
-        toast.success('Report uploaded successfully', {
-          description: 'Your lab report has been processed'
-        });
+  
+      if (parseResponse.data?.success) {
+        // Step 2: Analyze the trends using the parsed data
+        try {
+          await axios.post(
+            'http://localhost:8000/api/v1/users/analyze-trends',
+            parseResponse.data.data, // Send the parsed test data as input
+            {
+              withCredentials: true,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          
+          toast.success('Report processed successfully', {
+            description: 'Your lab report has been analyzed and insights generated'
+          });
+        } catch (analysisError: any) {
+          console.error('Analysis failed:', analysisError);
+          toast.error('Health insights generation failed', {
+            description: 'Your report was uploaded but we could not generate insights'
+          });
+        }
         
         setTimeout(() => {
-          navigate('/dashboard');
+          navigate('/health-insights');
         }, 1500);
       }
     } catch (error: any) {
@@ -118,7 +138,6 @@ const UploadReport: React.FC = () => {
       setIsUploading(false);
     }
   };
-
   // If context is loading or user is not logged in, show a loading state
   if (!userContext || !userContext.user) {
     return (
