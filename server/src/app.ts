@@ -16,8 +16,8 @@ app.use((req, _res, next) => {
 });
 
 // Body parsing middleware
-app.use(express.json({ limit: "16kb" }));
-app.use(express.urlencoded({ extended: true, limit: "16kb" }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 // CORS and cookie middleware
 app.use(
