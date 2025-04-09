@@ -12,6 +12,7 @@ import UserDashboard from "./pages/dashboard/userDashboard";
 import UserContextProvider from "./context/UserContextProvider";
 import UploadReport from "./pages/report/uploadReport";
 import HealthInsights from "./pages/report/healthInsights";
+import HealthTrends from "./pages/report/healthTrends";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<Navigate to="/auth/login" replace />} />
           <Route path="/upload-report" element={<UploadReport />} />
           <Route path="/health-insights" element={<HealthInsights />} />
+          <Route path="/health-trends" element={<HealthTrends />} />
         </Routes>
       </Router>
       <Toaster position="top-right" />

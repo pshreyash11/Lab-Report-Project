@@ -80,7 +80,10 @@ const UserDashboard: React.FC = () => {
             <p className="text-gray-600 mb-4">
               Track changes in your lab results over time
             </p>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+            <button
+              onClick={() => navigate("/health-trends")}
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            >
               View Trends
             </button>
           </div>
