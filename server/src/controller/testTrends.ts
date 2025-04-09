@@ -10,7 +10,11 @@ interface TrendData {
 }
 
 interface TestTrends {
-    [testName: string]: TrendData[];
+    [testName: string]: {
+        data: TrendData[];
+        minValue: number;
+        maxValue: number;
+    };
 }
 
 export const getTestTrends = asyncHandler(async (req: Request, res: Response) => {
@@ -29,21 +33,29 @@ export const getTestTrends = asyncHandler(async (req: Request, res: Response) =>
             
             // Initialize array if not exists
             if (!trends[testName]) {
-                trends[testName] = [];
+                trends[testName] = {
+                    data: [],
+                    minValue: Infinity,
+                    maxValue: -Infinity
+                };
             }
 
             // Add records to trend data
             test.records.forEach(record => {
-                trends[testName].push({
+                trends[testName].data.push({
                     date: record.date.toISOString().split('T')[0],
                     value: record.value
                 });
+                
+                // Update min and max values
+                trends[testName].minValue = Math.min(trends[testName].minValue, record.value);
+                trends[testName].maxValue = Math.max(trends[testName].maxValue, record.value);
             });
         });
 
         // Sort each test's data by date
         Object.keys(trends).forEach(testName => {
-            trends[testName].sort((a, b) => 
+            trends[testName].data.sort((a, b) => 
                 new Date(a.date).getTime() - new Date(b.date).getTime()
             );
         });

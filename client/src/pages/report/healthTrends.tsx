@@ -28,7 +28,11 @@ interface ChartData {
 }
 
 interface HealthReportData {
-  [testName: string]: TrendData[];
+  [testName: string]: {
+    data: TrendData[];
+    minValue: number;
+    maxValue: number;
+  };
 }
 
 // Array of colors for different line charts
@@ -129,19 +133,28 @@ const HealthTrends = () => {
 
         {Object.keys(healthData).length > 0 && (
           <div className="grid grid-cols-1 gap-6">
-            {Object.entries(healthData).map(([testName, trends], index) => {
+            {Object.entries(healthData).map(([testName, testData], index) => {
               // Skip if there's only one data point (can't make a line chart)
-              if (trends.length <= 1) return null;
+              if (testData.data.length <= 1) return null;
 
-              const chartData = prepareChartData(trends);
+              const chartData = prepareChartData(testData.data);
               const colorIndex = index % CHART_COLORS.length;
               const lineColor = CHART_COLORS[colorIndex];
+              const { minValue, maxValue } = testData;
 
               return (
                 <Card key={testName} className="p-4">
                   <h2 className="text-lg font-semibold mb-4">
                     Test: {testName}
                   </h2>
+                  <div className="flex justify-between mb-2 text-sm text-gray-600">
+                    <div>
+                      Min Value: <span className="font-medium">{minValue}</span>
+                    </div>
+                    <div>
+                      Max Value: <span className="font-medium">{maxValue}</span>
+                    </div>
+                  </div>
                   <div className="h-64 w-full">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart
@@ -163,6 +176,10 @@ const HealthTrends = () => {
                             angle: -90,
                             position: "insideLeft",
                           }}
+                          domain={[
+                            Math.floor(minValue * 0.9), // Set y-axis min to 90% of the minimum value
+                            Math.ceil(maxValue * 1.1), // Set y-axis max to 110% of the maximum value
+                          ]}
                         />
                         <Tooltip
                           formatter={(value) => [`${value}`, "Value"]}
