@@ -16,6 +16,7 @@ import {
 } from "recharts";
 
 // Define interface based on the test trends response structure
+// This is test commit
 interface TrendData {
   date: string;
   value: number;
