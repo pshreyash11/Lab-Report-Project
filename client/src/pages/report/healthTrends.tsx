@@ -13,6 +13,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  ReferenceArea,
+  ReferenceLine,
 } from "recharts";
 
 // Define interface based on the test trends response structure
@@ -187,6 +189,29 @@ const HealthTrends = () => {
                           labelFormatter={(label) => `Date: ${label}`}
                         />
                         <Legend />
+                        {/* Add reference area to highlight the recommended range */}
+                        <ReferenceArea
+                          y1={minValue}
+                          y2={maxValue}
+                          fill={`${lineColor}20`} // Using the same color as the line but with transparency
+                          label={{
+                            value: "Recommended Range",
+                            position: "insideTop",
+                          }}
+                        />
+                        {/* Add reference lines for min and max values */}
+                        <ReferenceLine
+                          y={minValue}
+                          stroke={lineColor}
+                          strokeDasharray="3 3"
+                          label={{ value: "Min", position: "left" }}
+                        />
+                        <ReferenceLine
+                          y={maxValue}
+                          stroke={lineColor}
+                          strokeDasharray="3 3"
+                          label={{ value: "Max", position: "left" }}
+                        />
                         <Line
                           type="monotone"
                           dataKey="value"

@@ -35,8 +35,9 @@ export const getTestTrends = asyncHandler(async (req: Request, res: Response) =>
             if (!trends[testName]) {
                 trends[testName] = {
                     data: [],
-                    minValue: Infinity,
-                    maxValue: -Infinity
+                    // Use reference range min and max instead of actual test result min/max
+                    minValue: test.referenceRange.min,
+                    maxValue: test.referenceRange.max
                 };
             }
 
@@ -46,10 +47,6 @@ export const getTestTrends = asyncHandler(async (req: Request, res: Response) =>
                     date: record.date.toISOString().split('T')[0],
                     value: record.value
                 });
-                
-                // Update min and max values
-                trends[testName].minValue = Math.min(trends[testName].minValue, record.value);
-                trends[testName].maxValue = Math.max(trends[testName].maxValue, record.value);
             });
         });
 
